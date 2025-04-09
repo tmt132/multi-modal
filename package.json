@@ -2,10 +2,12 @@
   "name": "multi-modal",
   "private": true,
   "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -p tsconfig.build.json",
     "lint": "eslint .",
     "preview": "vite preview"
   },

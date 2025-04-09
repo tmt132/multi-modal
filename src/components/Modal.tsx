@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import "./Modal.css";
 
 interface ModalProps {
   id: string;
