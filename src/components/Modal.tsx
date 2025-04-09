@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import styles from "../styles/Modal.module.css";
 
 interface ModalProps {
   id: string;
@@ -9,12 +10,12 @@ interface ModalProps {
 
 export const Modal = ({ id, title, children, onClose }: ModalProps) => {
   return (
-    <div className="modal" id={id}>
-      <div className="modal-header">
+    <div className={styles.modal} id={id}>
+      <div className={styles["modal-header"]}>
         <span>{title}</span>
         <button onClick={onClose}>X</button>
       </div>
-      <div className="modal-content">{children}</div>
+      <div className={styles["modal-content"]}>{children}</div>
     </div>
   );
 };
