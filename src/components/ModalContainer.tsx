@@ -6,14 +6,15 @@ export const ModalContainer = () => {
 
   return (
     <>
-      {modals.map((modal) => (
+      {modals.map(({ id, options }) => (
         <Modal
-          key={modal.id}
-          id={modal.id}
-          title={modal.title}
-          onClose={() => closeModal(modal.id)}
+          key={id}
+          id={id}
+          title={options.title}
+          onClose={() => closeModal(id)}
+          showCloseButton={options.showCloseButton}
         >
-          {modal.content}
+          {options.content}
         </Modal>
       ))}
     </>
