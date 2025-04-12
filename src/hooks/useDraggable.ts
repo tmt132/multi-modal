@@ -11,10 +11,22 @@ export function useDraggable(initial = { top: 100, left: 100 }) {
       if (isDragging.current && elementRef.current) {
         const deltaX = event.clientX - dragStart.current.x;
         const deltaY = event.clientY - dragStart.current.y;
-        setPosition((prev) => ({
-          top: prev.top + deltaY,
-          left: prev.left + deltaX,
-        }));
+
+        const rect = elementRef.current.getBoundingClientRect();
+        const newLeft = position.left + deltaX;
+        const newTop = position.top + deltaY;
+
+        const maxLeft = window.innerWidth - rect.width;
+        const maxTop = window.innerHeight - rect.height;
+
+        const clampedLeft = Math.max(0, Math.min(newLeft, maxLeft));
+        const clampedTop = Math.max(0, Math.min(newTop, maxTop));
+
+        setPosition({
+          top: clampedTop,
+          left: clampedLeft,
+        });
+
         dragStart.current = { x: event.clientX, y: event.clientY };
       }
     };
@@ -30,7 +42,7 @@ export function useDraggable(initial = { top: 100, left: 100 }) {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, []);
+  }, [position]);
 
   const handleMouseDown = (event: React.MouseEvent) => {
     isDragging.current = true;
