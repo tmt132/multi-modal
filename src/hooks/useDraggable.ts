@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 
-export function useDraggable(initial = { top: 100, left: 100 }) {
+export function useDraggable(initial = { top: 0, left: 0 }) {
   const elementRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState(initial);
   const isDragging = useRef(false);
@@ -12,12 +12,18 @@ export function useDraggable(initial = { top: 100, left: 100 }) {
         const deltaX = event.clientX - dragStart.current.x;
         const deltaY = event.clientY - dragStart.current.y;
 
-        const rect = elementRef.current.getBoundingClientRect();
+        const modalRect = elementRef.current.getBoundingClientRect();
+        const parentRect =
+          elementRef.current.parentElement?.getBoundingClientRect() || {
+            width: window.innerWidth,
+            height: window.innerHeight,
+          };
+
         const newLeft = position.left + deltaX;
         const newTop = position.top + deltaY;
 
-        const maxLeft = window.innerWidth - rect.width;
-        const maxTop = window.innerHeight - rect.height;
+        const maxLeft = parentRect.width - modalRect.width;
+        const maxTop = parentRect.height - modalRect.height;
 
         const clampedLeft = Math.max(0, Math.min(newLeft, maxLeft));
         const clampedTop = Math.max(0, Math.min(newTop, maxTop));

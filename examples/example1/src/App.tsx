@@ -17,7 +17,11 @@ function App() {
       >
         Open Modal
       </button>
-      <ModalContainer />
+      <div
+        style={{ margin: "20px", border: "1px solid black", height: "500px" }}
+      >
+        <ModalContainer />
+      </div>
     </div>
   );
 }
