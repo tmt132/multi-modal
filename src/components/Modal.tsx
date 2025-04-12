@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useRef } from "react";
 import { useDraggable } from "../hooks/useDraggable";
 import styles from "../styles/Modal.module.css";
 
@@ -17,11 +17,13 @@ export const Modal = ({
   onClose,
   showCloseButton = true,
 }: ModalProps) => {
-  const { ref, position, handleMouseDown } = useDraggable();
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const { position, handleMouseDown } = useDraggable(modalRef);
 
   return (
     <div
-      ref={ref}
+      ref={modalRef}
       className={styles.modal}
       id={id}
       style={{ top: position.top, left: position.left }}
