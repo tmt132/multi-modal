@@ -5,6 +5,7 @@
   width: 400px;
   background-color: #fff;
   border-radius: 16px;
+  box-sizing: border-box;
   padding: 24px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
   font-family: "Segoe UI", sans-serif;
@@ -37,4 +38,15 @@
 .modal-content {
   font-size: 1rem;
   color: #333;
+}
+
+.resize-handle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 16px;
+  height: 16px;
+  background-color: transparent;
+  border-radius: 50%;
+  cursor: se-resize;
 }
