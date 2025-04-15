@@ -12,8 +12,8 @@ export function useDraggable(
 
     const handleMouseMove = (event: MouseEvent) => {
       if (isDragging.current && elementRef.current) {
-        const deltaX = event.clientX - dragStart.current.x;
-        const deltaY = event.clientY - dragStart.current.y;
+        const deltaX = event.pageX - dragStart.current.x;
+        const deltaY = event.pageY - dragStart.current.y;
 
         const modalRect = elementRef.current.getBoundingClientRect();
         const parentRect =
@@ -36,7 +36,7 @@ export function useDraggable(
           left: clampedLeft,
         });
 
-        dragStart.current = { x: event.clientX, y: event.clientY };
+        dragStart.current = { x: event.pageX, y: event.pageY };
       }
     };
 
@@ -55,7 +55,7 @@ export function useDraggable(
 
   const handleMouseDown = (event: React.MouseEvent) => {
     isDragging.current = true;
-    dragStart.current = { x: event.clientX, y: event.clientY };
+    dragStart.current = { x: event.pageX, y: event.pageY };
   };
 
   return { position, handleMouseDown };
