@@ -54,7 +54,7 @@ export function useResizable(
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
     };
-  });
+  }, [elementRef, minSize]);
 
   const handleResizeMouseDown = (event: React.MouseEvent) => {
     if (!elementRef.current) return;
