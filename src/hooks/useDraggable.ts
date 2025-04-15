@@ -11,33 +11,33 @@ export function useDraggable(
     if (!elementRef.current) return;
 
     const handleMouseMove = (event: MouseEvent) => {
-      if (isDragging.current && elementRef.current) {
-        const deltaX = event.pageX - dragStart.current.x;
-        const deltaY = event.pageY - dragStart.current.y;
+      if (!isDragging.current || !elementRef.current) return;
 
-        const modalRect = elementRef.current.getBoundingClientRect();
-        const parentRect =
-          elementRef.current.parentElement?.getBoundingClientRect() || {
-            width: window.innerWidth,
-            height: window.innerHeight,
-          };
+      const deltaX = event.pageX - dragStart.current.x;
+      const deltaY = event.pageY - dragStart.current.y;
 
-        const newLeft = position.left + deltaX;
-        const newTop = position.top + deltaY;
+      const modalRect = elementRef.current.getBoundingClientRect();
+      const parentRect =
+        elementRef.current.parentElement?.getBoundingClientRect() || {
+          width: window.innerWidth,
+          height: window.innerHeight,
+        };
 
-        const maxLeft = parentRect.width - modalRect.width;
-        const maxTop = parentRect.height - modalRect.height;
+      const newLeft = position.left + deltaX;
+      const newTop = position.top + deltaY;
 
-        const clampedLeft = Math.max(0, Math.min(newLeft, maxLeft));
-        const clampedTop = Math.max(0, Math.min(newTop, maxTop));
+      const maxLeft = parentRect.width - modalRect.width;
+      const maxTop = parentRect.height - modalRect.height;
 
-        setPosition({
-          top: clampedTop,
-          left: clampedLeft,
-        });
+      const clampedLeft = Math.max(0, Math.min(newLeft, maxLeft));
+      const clampedTop = Math.max(0, Math.min(newTop, maxTop));
 
-        dragStart.current = { x: event.pageX, y: event.pageY };
-      }
+      setPosition({
+        top: clampedTop,
+        left: clampedLeft,
+      });
+
+      dragStart.current = { x: event.pageX, y: event.pageY };
     };
 
     const handleMouseUp = () => {
