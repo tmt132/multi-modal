@@ -23,18 +23,17 @@ export function useDraggable(
           height: window.innerHeight,
         };
 
-      const newLeft = position.left + deltaX;
-      const newTop = position.top + deltaY;
+      setPosition((prev) => {
+        const newLeft = prev.left + deltaX;
+        const newTop = prev.top + deltaY;
 
-      const maxLeft = parentRect.width - modalRect.width;
-      const maxTop = parentRect.height - modalRect.height;
+        const maxLeft = parentRect.width - modalRect.width;
+        const maxTop = parentRect.height - modalRect.height;
 
-      const clampedLeft = Math.max(0, Math.min(newLeft, maxLeft));
-      const clampedTop = Math.max(0, Math.min(newTop, maxTop));
-
-      setPosition({
-        top: clampedTop,
-        left: clampedLeft,
+        return {
+          top: Math.max(0, Math.min(newTop, maxTop)),
+          left: Math.max(0, Math.min(newLeft, maxLeft)),
+        };
       });
 
       dragStart.current = { x: event.pageX, y: event.pageY };
@@ -51,7 +50,7 @@ export function useDraggable(
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
     };
-  });
+  }, [elementRef]);
 
   const handleMouseDown = (event: React.MouseEvent) => {
     isDragging.current = true;
