@@ -5,7 +5,7 @@ export const ModalContainer = () => {
   const { modals, closeModal } = useModalContext();
 
   return (
-    <>
+    <div style={{ position: "relative", width: "100%", height: "100%" }}>
       {modals.map(({ id, options }) => (
         <Modal
           key={id}
@@ -17,6 +17,6 @@ export const ModalContainer = () => {
           {options.content}
         </Modal>
       ))}
-    </>
+    </div>
   );
 };
