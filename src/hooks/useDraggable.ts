@@ -52,10 +52,10 @@ export function useDraggable(
     };
   }, [elementRef]);
 
-  const handleMouseDown = (event: React.MouseEvent) => {
+  const handleDragMouseDown = (event: React.MouseEvent) => {
     isDragging.current = true;
     dragStart.current = { x: event.pageX, y: event.pageY };
   };
 
-  return { position, handleMouseDown };
+  return { position, handleDragMouseDown };
 }
