@@ -11,33 +11,32 @@ export function useDraggable(
     if (!elementRef.current) return;
 
     const handleMouseMove = (event: MouseEvent) => {
-      if (isDragging.current && elementRef.current) {
-        const deltaX = event.clientX - dragStart.current.x;
-        const deltaY = event.clientY - dragStart.current.y;
+      if (!isDragging.current || !elementRef.current) return;
 
-        const modalRect = elementRef.current.getBoundingClientRect();
-        const parentRect =
-          elementRef.current.parentElement?.getBoundingClientRect() || {
-            width: window.innerWidth,
-            height: window.innerHeight,
-          };
+      const deltaX = event.pageX - dragStart.current.x;
+      const deltaY = event.pageY - dragStart.current.y;
 
-        const newLeft = position.left + deltaX;
-        const newTop = position.top + deltaY;
+      const modalRect = elementRef.current.getBoundingClientRect();
+      const parentRect =
+        elementRef.current.parentElement?.getBoundingClientRect() || {
+          width: window.innerWidth,
+          height: window.innerHeight,
+        };
+
+      setPosition((prev) => {
+        const newLeft = prev.left + deltaX;
+        const newTop = prev.top + deltaY;
 
         const maxLeft = parentRect.width - modalRect.width;
         const maxTop = parentRect.height - modalRect.height;
 
-        const clampedLeft = Math.max(0, Math.min(newLeft, maxLeft));
-        const clampedTop = Math.max(0, Math.min(newTop, maxTop));
+        return {
+          top: Math.max(0, Math.min(newTop, maxTop)),
+          left: Math.max(0, Math.min(newLeft, maxLeft)),
+        };
+      });
 
-        setPosition({
-          top: clampedTop,
-          left: clampedLeft,
-        });
-
-        dragStart.current = { x: event.clientX, y: event.clientY };
-      }
+      dragStart.current = { x: event.pageX, y: event.pageY };
     };
 
     const handleMouseUp = () => {
@@ -51,12 +50,12 @@ export function useDraggable(
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
     };
-  });
+  }, [elementRef]);
 
-  const handleDragMouseDown = (event: React.MouseEvent) => {
+  const handleMouseDown = (event: React.MouseEvent) => {
     isDragging.current = true;
-    dragStart.current = { x: event.clientX, y: event.clientY };
+    dragStart.current = { x: event.pageX, y: event.pageY };
   };
 
-  return { position, handleDragMouseDown };
+  return { position, handleMouseDown };
 }
