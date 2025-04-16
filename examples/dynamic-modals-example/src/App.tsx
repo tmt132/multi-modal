@@ -5,7 +5,7 @@ function App() {
 
   return (
     <div>
-      <h1>Example 1</h1>
+      <h1>Example For Dynamic Modals</h1>
       <button
         onClick={() => {
           openModal({
