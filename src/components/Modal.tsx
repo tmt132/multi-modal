@@ -2,7 +2,7 @@ import { ReactNode, useRef } from "react";
 import { useDraggable } from "../hooks/useDraggable";
 import { useResizable } from "../hooks/useResizable";
 import styles from "../styles/Modal.module.css";
-import { useModalFocusContext } from "../context/ModalFocusContext";
+import { useModalContext } from "../context/ModalContext";
 
 interface ModalProps {
   id: string;
@@ -24,13 +24,14 @@ export const Modal = ({
   const { position, handleDragMouseDown } = useDraggable(modalRef);
   const { size, handleResizeMouseDown } = useResizable(modalRef);
 
-  const { focusedModalId, setFocusedModalId } = useModalFocusContext();
+  const { modals, bringToFront } = useModalContext();
+
+  const modal = modals.find((modal) => modal.id === id);
+  const zIndex = modal ? modal.zIndex : 1000;
 
   const handleFocus = () => {
-    setFocusedModalId(id);
+    bringToFront(id);
   };
-
-  const isFocused = focusedModalId === id;
 
   return (
     <div
@@ -42,7 +43,7 @@ export const Modal = ({
         left: position.left,
         width: size.width,
         height: size.height,
-        zIndex: isFocused ? 1000 : 999,
+        zIndex: zIndex,
       }}
       onMouseDown={handleFocus}
     >

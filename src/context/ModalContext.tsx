@@ -1,35 +1,32 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 import { ModalOptions } from "../types/ModalTypes";
 import { v4 as uuid } from "uuid";
-import { ModalFocusProvider } from "./ModalFocusContext";
 
 interface ModalItem {
   id: string;
   options: ModalOptions;
+  zIndex: number;
 }
 
 interface ModalContextProps {
   modals: ModalItem[];
   openModal: (modal: ModalOptions) => string;
   closeModal: (id: string) => void;
-  focusedModalId?: string;
-  setFocusedModalId?: (id: string) => void;
+  bringToFront: (id: string) => void;
 }
 
 const ModalContext = createContext<ModalContextProps | undefined>(undefined);
 
 export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [modals, setModals] = useState<ModalItem[]>([]);
-  const [focusedModalId, setFocusedModalId] = useState<string | undefined>(
-    undefined
-  );
+  const [zIndexCounter, setZIndexCounter] = useState(1000);
 
   const openModal = (modal: ModalOptions) => {
     const id = uuid();
-    const newModal = { id, options: modal };
+    setZIndexCounter((prev) => prev + 1);
 
+    const newModal = { id, options: modal, zIndex: zIndexCounter };
     setModals((prevModals) => [...prevModals, newModal]);
-    setFocusedModalId(id);
 
     return id;
   };
@@ -38,17 +35,31 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     setModals((prevModals) => prevModals.filter((modal) => modal.id !== id));
   };
 
+  const bringToFront = (id: string) => {
+    setZIndexCounter((prev) => prev + 1);
+
+    setModals((prevModals) => {
+      const modalToBringToFront = prevModals.find((modal) => modal.id === id);
+      if (!modalToBringToFront) return prevModals;
+
+      const updatedModals = prevModals.filter((modal) => modal.id !== id);
+      return [
+        ...updatedModals,
+        { ...modalToBringToFront, zIndex: zIndexCounter },
+      ];
+    });
+  };
+
   return (
     <ModalContext.Provider
       value={{
         modals,
         openModal,
         closeModal,
-        focusedModalId,
-        setFocusedModalId,
+        bringToFront,
       }}
     >
-      <ModalFocusProvider>{children}</ModalFocusProvider>
+      {children}
     </ModalContext.Provider>
   );
 };
