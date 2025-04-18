@@ -38,11 +38,17 @@ function AppContent() {
       title: "🎬 비디오 콘텐츠",
       content: (
         <div
-          style={{ position: "relative", paddingBottom: "56.25%", height: 0 }}
+          style={{
+            position: "relative",
+            height: "0",
+            overflow: "hidden",
+            display: "flex",
+            flex: 1,
+            paddingBottom: "56.25%",
+          }}
         >
           <iframe
             src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             title="YouTube Video"
@@ -50,6 +56,7 @@ function AppContent() {
               position: "absolute",
               top: 0,
               left: 0,
+              objectFit: "contain",
               width: "100%",
               height: "100%",
               borderRadius: "8px",
