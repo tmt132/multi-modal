@@ -10,7 +10,8 @@
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["vite/client", "vitest/globals", "@testing-library/jest-dom"]
   },
   "include": ["src"]
 }
