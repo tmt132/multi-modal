@@ -3,6 +3,9 @@
 A flexible React component library for managing multiple same-level modals on a single web page.  
 Supports stacking, dragging, resizing, focus handling, and dynamic content.
 
+![gifForDynamicModals](https://github.com/user-attachments/assets/e4891004-a6c3-4c72-9355-9289c48b6b9f)
+
+
 ## 🚀 Overview
 
 `multi-modal` helps you display and manage multiple modal dialogs simultaneously.  
