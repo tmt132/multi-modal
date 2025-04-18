@@ -57,6 +57,9 @@ export function useResizable(
   }, [elementRef, minSize]);
 
   const handleResizeMouseDown = (event: React.MouseEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+
     if (!elementRef.current) return;
 
     isResizing.current = true;
