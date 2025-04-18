@@ -1,54 +1,69 @@
-# React + TypeScript + Vite
+# multi-modal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A flexible React component library for managing multiple same-level modals on a single web page.  
+Supports stacking, dragging, resizing, focus handling, and dynamic content.
 
-Currently, two official plugins are available:
+## 🚀 Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+`multi-modal` helps you display and manage multiple modal dialogs simultaneously.  
+Unlike typical modal systems that assume only one modal at a time, this library is designed for use cases like:
 
-## Expanding the ESLint configuration
+- Complex dashboards
+- Multi-pane editors
+- Advanced settings/configuration UIs
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### ✨ Features
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- 📚 Manage multiple modals at once
+- 🧠 Automatic focus and z-index handling
+- 🖱️ Built-in dragging and resizing
+- ⚙️ Open/close modals dynamically with unique content
+- 🧩 Fully customizable content and titles
+
+---
+
+## 🔧 Usage
+
+### 1. Wrap your app with `<ModalProvider>` and include `<ModalContainer />`
+
+```tsx
+import { ModalProvider, ModalContainer } from "multi-modal";
+
+const App = () => (
+  <ModalProvider>
+    <YourApp />
+    <ModalContainer />
+  </ModalProvider>
+);
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Use `useModal()` to open modals anywhere in your app
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```tsx
+import { useModal } from "multi-modal";
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+const MyComponent = () => {
+  const { openModal } = useModal();
+
+  const handleClick = () => {
+    openModal({
+      title: "My Modal",
+      content: <p>This is a modal!</p>,
+    });
+  };
+
+  return <button onClick={handleClick}>Open Modal</button>;
+};
 ```
+
+The modal will automatically:
+
+- Be draggable and resizable
+- Come to the front on focus
+- Have a built-in close (X) button
+
+---
+
+## 📄 License
+
+MIT License © tmt132 2025
