@@ -10,7 +10,7 @@ function AppContent() {
         <div style={{ padding: "10px", lineHeight: "1.6" }}>
           이 모달은 단순한 텍스트 정보를 보여줍니다.
           <br />
-          리액트 모달 시스템은 다양한 콘텐츠를 유연하게 지원할 수 있어요.
+          multi-modal은 다양한 콘텐츠를 유연하게 지원할 수 있어요.
         </div>
       ),
       showCloseButton: true,
@@ -23,8 +23,7 @@ function AppContent() {
       content: (
         <div style={{ textAlign: "center" }}>
           <img
-            src="https://via.placeholder.com/300x200"
-            alt="placeholder"
+            src="../image/example.jpg"
             style={{ maxWidth: "100%", borderRadius: "8px" }}
           />
         </div>
@@ -48,7 +47,7 @@ function AppContent() {
           }}
         >
           <iframe
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            src="https://www.youtube.com/embed/6hp9XOsnRvY"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             title="YouTube Video"
