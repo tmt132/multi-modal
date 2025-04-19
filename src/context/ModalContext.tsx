@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 import { ModalOptions } from "../types/ModalTypes";
-import { v4 as uuid } from "uuid";
 
 interface ModalItem {
   id: string;
@@ -22,7 +21,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [zIndexCounter, setZIndexCounter] = useState(1000);
 
   const openModal = (modal: ModalOptions) => {
-    const id = uuid();
+    const id = getModalId();
     setZIndexCounter((prev) => prev + 1);
 
     const newModal = { id, options: modal, zIndex: zIndexCounter };
@@ -62,6 +61,10 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
       {children}
     </ModalContext.Provider>
   );
+};
+
+const getModalId = () => {
+  return Date.now().toString(36) + Math.random().toString(36).substring(2, 15);
 };
 
 export const useModalContext = () => {

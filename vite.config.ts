@@ -14,6 +14,8 @@ export default defineConfig({
     cssInjectedByJsPlugin(),
   ],
   test: {
+    include: ["src/**/*.{test,spec}.{js,ts,jsx,tsx}"],
+    exclude: ["**/node_modules/**", "**/examples/**"],
     globals: true,
     environment: "jsdom",
     setupFiles: "./vitest.setup.ts",
