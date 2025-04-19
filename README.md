@@ -1,5 +1,7 @@
 # multi-modal
 
+https://www.npmjs.com/package/multi-modal
+
 A flexible React component library for managing multiple same-level modals on a single web page.  
 Supports stacking, dragging, resizing, focus handling, and dynamic content.
 
