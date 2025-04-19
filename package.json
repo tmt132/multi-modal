@@ -13,7 +13,9 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest --globals --ui"
+    "test:lib": "vitest --globals --ui --config vite.config.ts",
+    "test:dynamic": "vitest --globals --ui --config examples/dynamic-modals-example/vite.config.ts",
+    "test:various": "vitest --globals --ui --config examples/various-content-modals-example/vite.config.ts"
   },
   "peerDependencies": {
     "react": "^18.0.0",
