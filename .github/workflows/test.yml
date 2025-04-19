@@ -19,5 +19,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests
-        run: npm run test -- --coverage
+      - name: Run library tests
+        run: npm run test:lib -- --coverage
+
+      - name: Run dynamic-modals-example tests
+        run: npm run test:dynamic
+
+      - name: Run various-content-modals-example tests
+        run: npm run test:various
