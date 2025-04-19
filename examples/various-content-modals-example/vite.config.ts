@@ -18,7 +18,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "multi-modal": path.resolve(__dirname, "../../dist"), // 실제 소스 폴더로 연결
+      "multi-modal": path.resolve(__dirname, "../../"),
     },
   },
 });
